@@ -2,6 +2,7 @@
 
 source components/common.sh
 rm -rf /tmp/roboshop.log
+set-hostname frontend
 
 HEAD "Installing Ngnix\t"
 yum install ngnix -y &>>/tmp/roboshop.log
