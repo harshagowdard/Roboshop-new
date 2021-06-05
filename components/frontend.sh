@@ -26,6 +26,12 @@ HEAD "Update Nginx Configuration"
 mv /usr/share/nginx/html/localhost.conf /etc/nginx/default.d/roboshop.conf
 STAT $?
 
+HEAD "Update Endpoints in Nginx config"
+for componet in catalouge cart user shipping payment ; do
+  sed -i -e "/${componet}/ s/localhost/${componet}.roboshop.internal/" /etc/nginx/default.d/roboshop.conf
+done
+STAT $?
+
 HEAD "Start Nginx\t\t"
 systemctl restart nginx &>>/tmp/roboshop.log
 systemctl enable nginx &>>/tmp/roboshop.log
