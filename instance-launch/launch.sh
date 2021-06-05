@@ -16,7 +16,7 @@ LVER=3
 DNS_UPDATE() {
   PRIVATEIP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jp.Reservations[].Instances[].PrivateIPAddress | xargs -n1)
   sed -e "s/COMPONENT/${COMPONENT}/" -e "s/IPADDRESS/${PRIVATEIP}/" record.json >/tmp/record.json
-  aws route53 change-resource-record-sets --hosted-zone-id Z04221902CM9ZT2GHM1NW --change-batch file:///tmp/record.json | jq
+  aws route53 change-resource-record-sets --hosted-zone-id Z048208936LT81AGJ430Q --change-batch file:///tmp/record.json | jq
 }
 INSTANCE_CREATE() {
   INSTANCE_STATE=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}"  | jq .Reservations[].Instances[].State.Name | xargs -n1)
