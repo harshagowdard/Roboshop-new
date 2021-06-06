@@ -5,7 +5,7 @@ rm -rf /tmp/roboshop.log
 set-hostname frontend
 
 HEAD "Installing Ngnix\t"
-yum install ngnix -y &>>/tmp/roboshop.log
+yum install nginx -y &>>/tmp/roboshop.log
 STAT $?
 
 HEAD "Download from GitHub\t"
