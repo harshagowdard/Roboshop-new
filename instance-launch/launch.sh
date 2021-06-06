@@ -14,8 +14,7 @@ LVER=4
 ## Validate if instance is already there
 
 DNS_UPDATE() {
-  PRIVATEIP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jp.Reservations[].Instances[].PrivateIPAddress | xargs -n1)
-  sed -e "s/COMPONENT/${COMPONENT}/" -e "s/IPADDRESS/${PRIVATEIP}/" record.json >/tmp/record.json
+PRIVATEIP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}"  | jq .Reservations[].Instances[].PrivateIpAddress | xargs -n1)  sed -e "s/COMPONENT/${COMPONENT}/" -e "s/IPADDRESS/${PRIVATEIP}/" record.json >/tmp/record.json
   aws route53 change-resource-record-sets --hosted-zone-id Z048208936LT81AGJ430Q --change-batch file:///tmp/record.json | jq
 }
 INSTANCE_CREATE() {
